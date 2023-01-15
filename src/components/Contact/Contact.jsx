@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types';
 import { ContactItem, ContactBtn, Text } from './Contact.styled';
 
-
-const Contact = ({contact: {name, number, id}, removeContact}) => {
+const Contact = ({ contact: { name, number, id }, removeContact }) => {
   return (
     <ContactItem>
       <Text>{name}</Text>
       <Text>{number}</Text>
-      <ContactBtn onClick={()=> removeContact(id)}>Delete</ContactBtn>
+      <ContactBtn onClick={() => removeContact(id)}>Delete</ContactBtn>
     </ContactItem>
-  )
+  );
 };
 
 Contact.propTypes = {
@@ -19,6 +18,6 @@ Contact.propTypes = {
     number: PropTypes.string.isRequired,
   }),
   removeContact: PropTypes.func.isRequired,
-}
+};
 
 export default Contact;
