@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { Form, Label, Button, Input } from './ContactForm.styled';
-import contacts from '../../App';
+import PropTypes from 'prop-types';
 
-const ConatctForm = () => {
+const ConatctForm = ({ contacts, onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-
+  const handleChange = ({ target: { name, value } }) => {
     switch (name) {
       case 'name':
         setName(value);
@@ -25,11 +23,13 @@ const ConatctForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(e);
     if (contacts.find(contact => name === contact.name)) {
       alert(`${name} is already in contacts.`);
       return;
     }
+    onSubmit(name, number);
+    setName('');
+    setNumber('');
   };
 
   return (
@@ -63,6 +63,15 @@ const ConatctForm = () => {
       <Button>Add contact</Button>
     </Form>
   );
+};
+
+ConatctForm.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })
+  ),
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ConatctForm;

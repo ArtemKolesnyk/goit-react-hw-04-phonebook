@@ -14,27 +14,17 @@ const App = () => {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ]);
 
-  const addContact = contacts => {
+  const addContact = (name, number) => {
     const newContact = {
-      ...contacts,
+      name,
+      number,
       id: nanoid(),
     };
-    setContacts(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-    }));
+    setContacts(prevState => [...prevState, newContact]);
   };
 
   const removeContact = contactId => {
-    setContacts(prevState => ({
-      contacts: prevState.contacts.filter(({ id }) => id !== contactId),
-    }));
-  };
-
-  const changeFilter = e => {
-    const { filter, value } = e.target;
-    if (filter) {
-      setFilter(value);
-    }
+    setContacts(prevState => prevState.filter(({ id }) => id !== contactId));
   };
 
   const getFiltredContact = () => {
@@ -51,7 +41,7 @@ const App = () => {
         <ConatctForm contacts={contacts} onSubmit={addContact} />
         <h2>--CONTACTS--</h2>
         {contacts.length > 1 && (
-          <Filter value={filter} onChangeFilter={changeFilter} />
+          <Filter value={filter} onChangeFilter={e => setFilter(e)} />
         )}
         <ContactList
           contacts={getFiltredContact()}
