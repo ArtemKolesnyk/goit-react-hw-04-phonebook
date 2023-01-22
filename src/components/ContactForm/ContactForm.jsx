@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Form, Label, Button, Input } from './ContactForm.styled';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 
 const ConatctForm = ({ contacts, onSubmit }) => {
   const [name, setName] = useState('');
@@ -24,7 +25,7 @@ const ConatctForm = ({ contacts, onSubmit }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (contacts.find(contact => name === contact.name)) {
-      alert(`${name} is already in contacts.`);
+      toast.warn(`${name} is already in contacts.`);
       return;
     }
     onSubmit(name, number);
